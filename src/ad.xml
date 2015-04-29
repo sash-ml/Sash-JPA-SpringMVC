@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<advertisements>
+    <advertisement>
+        <name>
+            Ковбаса
+        </name>
+        <shortdesc>
+            Ковбаса
+        </shortdesc>
+        <longdesc>
+            Ковбаса
+        </longdesc>
+        <phone>
+            +030405
+        </phone>
+        <price>
+            34
+        </price>
+    </advertisement>
+    <advertisement>
+        <name>
+            Горілка
+        </name>
+        <shortdesc>
+            Горілка
+        </shortdesc>
+        <longdesc>
+            Горілка
+        </longdesc>
+        <phone>
+            +87644
+        </phone>
+        <price>
+            78
+        </price>
+    </advertisement>
+</advertisements>
