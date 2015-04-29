@@ -1,9 +1,12 @@
 package com.springjpamvc.entities;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "Advs")
+@XmlRootElement(name = "advertisement")
 public class Advertisement {
     @Id
     @GeneratedValue
@@ -12,6 +15,7 @@ public class Advertisement {
     private String name;
 
     @Column(name = "short_desc")
+
     private String shortDesc;
 
     @Column(name = "to_del")
@@ -29,6 +33,7 @@ public class Advertisement {
     private String longDesc;
 
     private String phone;
+
     private double price;
 
     @OneToOne(cascade=CascadeType.ALL)
@@ -59,6 +64,7 @@ public class Advertisement {
         return shortDesc;
     }
 
+    @XmlElement(name = "shortdesc")
     public void setShortDesc(String shortDesc) {
         this.shortDesc = shortDesc;
     }
@@ -67,6 +73,7 @@ public class Advertisement {
         return name;
     }
 
+    @XmlElement(name = "name")
     public void setName(String name) {
         this.name = name;
     }
@@ -75,6 +82,7 @@ public class Advertisement {
         return longDesc;
     }
 
+    @XmlElement(name = "longdesc")
     public void setLongDesc(String longDesc) {
         this.longDesc = longDesc;
     }
@@ -83,6 +91,7 @@ public class Advertisement {
         return phone;
     }
 
+    @XmlElement(name = "phone")
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -91,6 +100,7 @@ public class Advertisement {
         return price;
     }
 
+    @XmlElement(name = "price")
     public void setPrice(double price) {
         this.price = price;
     }

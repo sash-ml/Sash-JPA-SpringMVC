@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>New</title>
+    <meta charset="UTF-8" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-1.11.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

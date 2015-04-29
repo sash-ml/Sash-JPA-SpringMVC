@@ -1,5 +1,6 @@
 package com.springjpamvc.controllers;
 
+import com.springjpamvc.entities.AdvList;
 import com.springjpamvc.entities.Advertisement;
 import com.springjpamvc.entities.Photo;
 import com.springjpamvc.repositories.JpaRepository;
@@ -9,12 +10,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.*;
 
 
 @Controller
@@ -23,7 +28,7 @@ public class MainController {
     @Autowired
     private JpaRepository jpaRepository;
 
-    @RequestMapping({"/","home"})
+     @RequestMapping({"/","home"})
      public ModelAndView info(){
         return new ModelAndView("info", "advs", jpaRepository.list());
     }
@@ -105,7 +110,7 @@ public class MainController {
 
     }
 
-    @RequestMapping(value = "/confirm_edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/confirm_edit", method = RequestMethod.POST, produces={"text/html;charset=UTF-8"})
     public ModelAndView editAdv(@RequestParam(value="id") Long id,
                                 @RequestParam(value="photo_id") Long photo_id,
                                @RequestParam(value="name") String name,
@@ -176,6 +181,34 @@ public class MainController {
     public ModelAndView edit(@RequestParam(value="id") long id) {
         return new ModelAndView("edit", "adv", jpaRepository.getAdv(id));
     }
+
+    @RequestMapping("/import_xml")
+    public ModelAndView importXml(@RequestParam(value = "xmlfile") MultipartFile mfile) {
+        InputStream inputStream = null;
+        Reader reader = null;
+        try {
+            inputStream = mfile.getInputStream();
+            reader = new InputStreamReader(inputStream, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JAXBContext jaxbContext = null;
+        Unmarshaller unmarshaller = null;
+        AdvList advList = null;
+        try {
+            jaxbContext = JAXBContext.newInstance(AdvList.class);
+            unmarshaller = jaxbContext.createUnmarshaller();
+            advList = (AdvList) unmarshaller.unmarshal(reader);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        for (Advertisement adv : advList.getAdvList()) {
+            jpaRepository.add(adv);
+        }
+
+        return new ModelAndView("info", "advs", jpaRepository.list());
+    }
+
 
     @RequestMapping("/*")
     public ModelAndView unsecure(){

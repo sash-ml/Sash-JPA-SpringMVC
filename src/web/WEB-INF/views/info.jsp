@@ -45,10 +45,28 @@
         </c:forEach>
     </table>
 
-    <form action="/add_page" method="post">
-        <input type="submit" value="Add new">
-    </form>
-    <a href="/tray">View tray</a>
+    <table class="table table-striped">
+        <tr>
+            <td>
+                <form action="/add_page" method="post">
+                    <input type="submit" value="Add new">
+                </form>
+            </td>
+            <td>
+                <a href="/tray">View tray</a>
+            <td>
+                <form  enctype="multipart/form-data" class="form-horizontal" role="form" action="/import_xml" method="post">
+                    <table>
+                    <tr>
+                        <td > <input type="file" name="xmlfile"></td>
+                        <td width="150"> <input type="submit" value="Import XML"></td>
+                    </tr>
+                    </table>
+                </form>
+            </td>
+        </tr>
+    </table>
+
 </div>
 </body>
 </html>

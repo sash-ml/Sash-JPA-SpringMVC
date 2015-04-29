@@ -1,9 +1,6 @@
 package com.springjpamvc.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="Photos")
@@ -12,7 +9,9 @@ public class Photo {
     @GeneratedValue
     private long id;
     private String name;
-    private byte[] body;
+
+    @Lob
+    private byte body[];
 
     public Photo() {}
 

@@ -63,6 +63,7 @@ public class JpaRepository {
 
     @Transactional
     public void add(Advertisement adv) {
+            adv.setTo_del(false);
             entityManager.persist(adv);
     }
 
